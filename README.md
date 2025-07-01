@@ -1,0 +1,2 @@
+# ShaderDropdown_Unity
+Unityのエディター上でシェーダーの設定の選択を補助するGUIコントロール
