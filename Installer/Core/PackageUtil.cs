@@ -66,22 +66,49 @@ namespace HW.GitPackageInstaller.Core
         /// <returns></returns>
         private static async ValueTask InstallPackages()
         {
+            // 進捗バーを表示する
+            EditorUtility.DisplayProgressBar(
+                "Git Package Installer", "インストールに必要なデータを収集しています", 0);
+
             // このソースコードはパッケージのルートから1階層下のディレクトリに存在する
             // (root/Core/PackageUtil.cs)ため、2回親ディレクトリを取得する
             var packageRootPath = GetParentPath(GetParentPath(GetSelfPath())).Replace('\\', '/');
 
-            // パッケージ名を取得する
+            // 自身のパッケージ名を取得する
             var packageName = await GetSelfPackageName(packageRootPath);
-            if (string.IsNullOrWhiteSpace(packageName)) return;
+            if (string.IsNullOrWhiteSpace(packageName))
+            {
+                // 自身のパッケージ名を取得できなかった場合は失敗
+                Debug.LogError("[Git Package Installer] パッケージのインストールに失敗しました");
+                EditorUtility.ClearProgressBar();
+
+                return;
+            }
+
+            // 進捗バーの内容を書き換える
+            EditorUtility.DisplayProgressBar($"Git Package Installer ({packageName})",
+                "インストールするパッケージを取得しています", 1f / 3);
 
             // Git URLを取得する
             var gitUrl = await GetGitUrl(packageName);
+
             if (string.IsNullOrEmpty(gitUrl))
             {
+                // 完了した旨を1秒表示する
+                EditorUtility.DisplayProgressBar($"Git Package Installer ({packageName})",
+                    "パッケージのインストールが完了しました", 1);
+                await Task.Delay(1000);
+
+                // 進捗バーを消す
+                EditorUtility.ClearProgressBar();
+
                 // インストーラー(自身)を除去する
                 await WaitRequest(Client.Remove(packageName));
                 return;
             }
+
+            // 進捗バーを消す
+            EditorUtility.ClearProgressBar();
 
             // リポジトリからパッケージを取得する
             await WaitRequest(Client.Add(gitUrl));
