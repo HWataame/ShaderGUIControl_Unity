@@ -1,0 +1,14 @@
+{
+  "name": "com.hw.shader_gui_control",
+  "version": "1.0.0",
+  "displayName": "Shader GUI Control",
+  "description": "\u30de\u30c6\u30ea\u30a2\u30eb\u306e\u30a4\u30f3\u30b9\u30da\u30af\u30bf\u30fc\u3084\u30a8\u30c7\u30a3\u30bf\u30fc\u4e0a\u306b\u30b7\u30a7\u30fc\u30c0\u30fc\u6a5f\u80fd\u7cfb\u306e\u8a2d\u5b9a\u3092\u5bb9\u6613\u306b\u3059\u308bGUI\u30b3\u30f3\u30c8\u30ed\u30fc\u30eb\u3092\u8ffd\u52a0\u3057\u307e\u3059",
+  "unity": "2021.3",
+  "author": {
+    "name": "Wataame(HWataame)"
+  },
+  "dependencies": {
+    "com.hw.gui_scopes": "https://github.com/HWataame/GUIScopeUtil_Unity.git",
+    "com.hw.lib_enum_generics": "https://github.com/HWataame/LibEnumGenerics_Unity.git"
+  }
+}
