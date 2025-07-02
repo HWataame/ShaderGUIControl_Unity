@@ -1,0 +1,19 @@
+{
+    "name": "HW.ShaderGUIControl.Editor",
+    "rootNamespace": "HW.ShaderGUIControl.Editor",
+    "references": [
+        "GUID:a23a4e06196b608488f378262da5648b",
+        "GUID:455aa1353cdb86f49864064c7e1cc30e"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
