@@ -7,8 +7,5 @@
   "author": {
     "name": "Wataame(HWataame)"
   },
-  "dependencies": {
-    "com.hw.gui_scopes": "https://github.com/HWataame/GUIScopeUtil_Unity.git",
-    "com.hw.lib_enum_generics": "https://github.com/HWataame/LibEnumGenerics_Unity.git"
-  }
+  "dependencies": {}
 }
