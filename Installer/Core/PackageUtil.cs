@@ -10,8 +10,8 @@ PackageUtil.cs
 */
 using HW.GitPackageInstaller.Core.Data;
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +19,7 @@ using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
 using UnityEngine;
+#pragma warning disable IDE0063
 
 namespace HW.GitPackageInstaller.Core
 {
@@ -64,44 +65,25 @@ namespace HW.GitPackageInstaller.Core
         /// <returns></returns>
         private static async ValueTask InstallPackages()
         {
-            try
+            // このソースコードはパッケージのルートから1階層下のディレクトリに存在する
+            // (root/Core/PackageUtil.cs)ため、2回親ディレクトリを取得する
+            var packageRootPath = GetParentPath(GetParentPath(GetSelfPath())).Replace('\\', '/');
+
+            // パッケージ名を取得する
+            var packageName = await GetSelfPackageName(packageRootPath);
+            if (string.IsNullOrWhiteSpace(packageName)) return;
+
+            // Git URLを取得する
+            var gitUrl = await GetGitUrl(packageName);
+            if (string.IsNullOrEmpty(gitUrl))
             {
-                // このソースコードはパッケージのルートから1階層下のディレクトリに存在する
-                // (root/Core/PackageUtil.cs)ため、2回親ディレクトリを取得する
-                var packageRootPath = GetParentPath(GetParentPath(GetSelfPath())).Replace('\\', '/');
-
-                // パッケージ名を取得する
-                var packageName = await GetSelfPackageName(packageRootPath);
-                if (string.IsNullOrWhiteSpace(packageName)) return;
-
-                // リポジトリのテーブルを取得する
-                var table = AssetDatabase.LoadAssetAtPath<GitRepositoryTable>($"Packages/{packageName}/repotbl.asset");
-                if (!table) return;
-
-                // リポジトリのテーブルのレコードを取得する
-                var records = table.ToArray();
-                if (records.Length == 0) return;
-
-                // アセンブリの再読み込みをロックする
-                EditorApplication.LockReloadAssemblies();
-
-                // プロジェクトに追加されていないパッケージがあった場合は取得する
-                await ProcessAddRepositoryPackages(records);
-
                 // インストーラー(自身)を除去する
                 await WaitRequest(Client.Remove(packageName));
+                return;
             }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
-            finally
-            {
-                EditorUtility.ClearProgressBar();
 
-                // アセンブリの再読み込みのロックを解除する
-                EditorApplication.UnlockReloadAssemblies();
-            }
+            // リポジトリからパッケージを取得する
+            await WaitRequest(Client.Add(gitUrl));
         }
 
         /// <summary>
@@ -168,6 +150,48 @@ namespace HW.GitPackageInstaller.Core
         }
 
         /// <summary>
+        /// Git URLを取得する
+        /// </summary>
+        /// <param name="packageName">パッケージ名</param>
+        /// <returns>null=失敗、空文字列=処理終了、それら以外=Git URL</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static async ValueTask<string> GetGitUrl(string packageName)
+        {
+            // リポジトリのテーブルを取得する
+            var table = AssetDatabase.LoadAssetAtPath<GitRepositoryTable>($"Packages/{packageName}/repotbl.asset");
+            if (!table) return null;
+
+            // レコードを取得する
+            var records = new List<GitRepositoryRecord>(table);
+
+            // プロジェクトのパッケージ情報を取得する
+            var packages = await WaitRequest(Client.List());
+            if (packages == null) return null;
+
+            foreach (var package in packages)
+            {
+                for (int i = records.Count - 1; i >= 0; --i)
+                {
+                    var record = records[i];
+                    if (record.PackageName == package.name &&
+                        (string.IsNullOrWhiteSpace(record.GuidCheckPath) ||
+                        string.IsNullOrWhiteSpace(record.Guid) ||
+                        AssetDatabase.GUIDFromAssetPath(record.GuidCheckPath).ToString() == record.Guid))
+                    {
+                        // 判定をしない／GUIDの判定を行い、GUIDが同じである場合は対象から外す
+                        records.RemoveAt(i);
+                    }
+                }
+            }
+
+            // 追加対象が存在しない場合
+            if (records.Count == 0) return "";
+
+            // 追加対象が存在する場合
+            return records[0].GitUrl;
+        }
+
+        /// <summary>
         /// リクエストを待機する
         /// </summary>
         /// <param name="request">リクエスト</param>
@@ -202,30 +226,6 @@ namespace HW.GitPackageInstaller.Core
             {
                 // 読み込みに失敗した場合
                 return default;
-            }
-        }
-
-        /// <summary>
-        /// プロジェクトに追加されていないパッケージがあった場合は取得する
-        /// </summary>
-        /// <param name="records">リポジトリのテーブルのレコード</param>
-        /// <returns>処理を待機するタスク</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static async ValueTask ProcessAddRepositoryPackages(GitRepositoryRecord[] records)
-        {
-            if (records != null)
-            {
-                for (int i = 0; i < records.Length; ++i)
-                {
-                    var record = records[i];
-                    if (!string.IsNullOrWhiteSpace(record.GuidCheckPath) &&
-                        !string.IsNullOrWhiteSpace(record.Guid) &&
-                        AssetDatabase.GUIDFromAssetPath(record.GuidCheckPath).ToString() != record.Guid)
-                    {
-                        // GUIDの判定を行い、GUIDが同じではなかった場合はリポジトリからパッケージを取得する
-                        await WaitRequest(Client.Add(record.GitUrl));
-                    }
-                }
             }
         }
     }
