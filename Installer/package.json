@@ -1,0 +1,11 @@
+{
+  "name": "com.hw.shader_gui_control_installer",
+  "version": "1.0.0",
+  "displayName": "Shader GUI Control Installer",
+  "description": "",
+  "unity": "2021.3",
+  "author": {
+    "name": "Wataame(HWataame)"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03d9398043de1db4984c3d30b3ad3508, type: 3}
+  m_Name: repotbl
+  m_EditorClassIdentifier: 
+  records:
+  - gitUrl: https://github.com/HWataame/GUIScopeUtil_Unity.git
+    packageName: com.hw.gui_scopes
+    guidCheckPath: Packages/com.hw.gui_scopes/Scripts/Editor/HW.GUIScopes.Editor.asmdef
+    guid: a23a4e06196b608488f378262da5648b
+  - gitUrl: https://github.com/HWataame/LibEnumGenerics_Unity.git
+    packageName: com.hw.lib_enum_generics
+    guidCheckPath: Packages/com.hw.lib_enum_generics/Scripts/LibEnumGenerics.asmdef
+    guid: 455aa1353cdb86f49864064c7e1cc30e
+  - gitUrl: https://github.com/HWataame/ShaderGUIControl_Unity.git?path=Core
+    packageName: com.hw.shader_gui_control
+    guidCheckPath: Packages/com.hw.shader_gui_control/Scripts/Editor/HW.ShaderGUIControl.Editor.asmdef
+    guid: 520acf4194572914784840d1c0f481e6
