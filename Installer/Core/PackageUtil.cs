@@ -50,16 +50,22 @@ namespace HW.GitPackageInstaller.Core
         }
 
         /// <summary>
+        /// パッケージのインストールを登録する
+        /// </summary>
+        [InitializeOnLoadMethod]
+        private static void RegisterInstall()
+        {
+            EditorApplication.delayCall += async () => await InstallPackages();
+        }
+
+        /// <summary>
         /// パッケージをインストールする
         /// </summary>
         /// <returns></returns>
-        [InitializeOnLoadMethod]
         private static async ValueTask InstallPackages()
         {
             try
             {
-                EditorUtility.DisplayProgressBar("Git Package Installer", "リポジトリのテーブルを取得しています", 0);
-
                 // このソースコードはパッケージのルートから1階層下のディレクトリに存在する
                 // (root/Core/PackageUtil.cs)ため、2回親ディレクトリを取得する
                 var packageRootPath = GetParentPath(GetParentPath(GetSelfPath())).Replace('\\', '/');
@@ -84,6 +90,10 @@ namespace HW.GitPackageInstaller.Core
 
                 // インストーラー(自身)を除去する
                 await WaitRequest(Client.Remove(packageName));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
             }
             finally
             {
@@ -207,9 +217,6 @@ namespace HW.GitPackageInstaller.Core
             {
                 for (int i = 0; i < records.Length; ++i)
                 {
-                    EditorUtility.DisplayProgressBar("Git Package Installer",
-                        "追加するパッケージを処理しています", (float)i / records.Length);
-
                     var record = records[i];
                     if (!string.IsNullOrWhiteSpace(record.GuidCheckPath) &&
                         !string.IsNullOrWhiteSpace(record.Guid) &&
