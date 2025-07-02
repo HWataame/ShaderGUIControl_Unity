@@ -43,7 +43,7 @@ _StencilOp      ("ステンシルの処理", float) = 0
     ![導入方法01](https://github.com/user-attachments/assets/6b334a95-a1dd-4063-9cb2-b6d1f81cd6cc)
 5. 入力欄に手順2でコピーしたURLを貼り付け、「Install」ボタンを押す
 
-    ![導入方法02](https://github.com/user-attachments/assets/de46ab93-bd78-4786-9e29-4477de68fb97)
+    ![導入方法02](https://github.com/user-attachments/assets/c73beb0e-69bc-4ff0-8143-5100374daa7e)
 6. (必要に応じて)Assembly Definition Assetの管理下のエディターコードで利用する場合は、`HW.ShaderGUIControl.Editor`をAssembly Definition Referencesに追加する
 
     ![導入方法03(必要に応じて)](https://github.com/user-attachments/assets/17165e76-ec45-478c-a0e3-f21f88099bc5)
@@ -61,7 +61,7 @@ _StencilOp      ("ステンシルの処理", float) = 0
     ![導入方法01](https://github.com/user-attachments/assets/6b334a95-a1dd-4063-9cb2-b6d1f81cd6cc)
 5. Paste the URL copied in Step 2 into the input field and press the "Install" button.
 
-    ![導入方法02](https://github.com/user-attachments/assets/de46ab93-bd78-4786-9e29-4477de68fb97)
+    ![導入方法02](https://github.com/user-attachments/assets/c73beb0e-69bc-4ff0-8143-5100374daa7e)
 6. (If necessary) For use in editor code under the control of Assembly Definition Asset...
 
    Add `HW.ShaderGUIControl.Editor` to "Assembly Definition References" in your Assembly Definition Asset.
