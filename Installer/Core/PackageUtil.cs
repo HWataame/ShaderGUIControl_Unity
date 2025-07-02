@@ -19,6 +19,7 @@ using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
 using UnityEngine;
+#pragma warning disable IDE0063
 
 namespace HW.GitPackageInstaller.Core
 {
@@ -48,6 +49,7 @@ namespace HW.GitPackageInstaller.Core
                 get => name;
             }
         }
+
 
         /// <summary>
         /// パッケージのインストールを登録する
@@ -97,8 +99,6 @@ namespace HW.GitPackageInstaller.Core
             }
             finally
             {
-                EditorUtility.ClearProgressBar();
-
                 // アセンブリの再読み込みのロックを解除する
                 EditorApplication.UnlockReloadAssemblies();
             }
