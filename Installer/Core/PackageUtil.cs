@@ -1,6 +1,6 @@
 /*
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-所定のパッケージをインストールするクラス
+Gitリポジトリのパッケージのインストール処理を保持するクラス
 
 PackageUtil.cs
 ────────────────────────────────────────
@@ -24,7 +24,7 @@ using UnityEngine;
 namespace HW.GitPackageInstaller.Core
 {
     /// <summary>
-    /// 所定のパッケージをインストールするクラス
+    /// Gitリポジトリのパッケージのインストール処理を保持するクラス
     /// </summary>
     internal static class PackageUtil
     {
@@ -52,19 +52,10 @@ namespace HW.GitPackageInstaller.Core
 
 
         /// <summary>
-        /// パッケージのインストールを登録する
-        /// </summary>
-        [InitializeOnLoadMethod]
-        private static void RegisterInstall()
-        {
-            EditorApplication.delayCall += async () => await InstallPackages();
-        }
-
-        /// <summary>
         /// パッケージをインストールする
         /// </summary>
         /// <returns></returns>
-        private static async ValueTask InstallPackages()
+        internal static async ValueTask InstallPackages()
         {
             // 進捗バーを表示する
             EditorUtility.DisplayProgressBar(
