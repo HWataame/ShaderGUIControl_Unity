@@ -10,7 +10,7 @@ GitPackageInstaller.cs
 */
 using UnityEditor;
 
-namespace HW.GitPackageInstaller.Core
+namespace HW.GitPackageInstaller.ComHwShaderGuiControlInstaller.Core
 {
     /// <summary>
     /// 所定のGitリポジトリのパッケージをインストールするクラス

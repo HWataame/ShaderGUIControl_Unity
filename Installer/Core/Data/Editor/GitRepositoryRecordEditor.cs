@@ -12,7 +12,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace HW.GitPackageInstaller.Core.Data.Editor
+namespace HW.GitPackageInstaller.ComHwShaderGuiControlInstaller.Core.Data.Editor
 {
     /// <summary>
     /// GitRepositoryRecordのインスペクターを描画するクラス

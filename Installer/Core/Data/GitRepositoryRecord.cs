@@ -12,7 +12,7 @@ using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace HW.GitPackageInstaller.Core.Data
+namespace HW.GitPackageInstaller.ComHwShaderGuiControlInstaller.Core.Data
 {
     /// <summary>
     /// リポジトリのテーブルのレコード

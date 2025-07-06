@@ -8,7 +8,7 @@ PackageUtil.cs
 2025 Wataame(HWataame)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 */
-using HW.GitPackageInstaller.Core.Data;
+using HW.GitPackageInstaller.ComHwShaderGuiControlInstaller.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +21,7 @@ using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 #pragma warning disable IDE0063
 
-namespace HW.GitPackageInstaller.Core
+namespace HW.GitPackageInstaller.ComHwShaderGuiControlInstaller.Core
 {
     /// <summary>
     /// Gitリポジトリのパッケージのインストール処理を保持するクラス

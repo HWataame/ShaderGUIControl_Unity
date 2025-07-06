@@ -13,7 +13,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HW.GitPackageInstaller.Core.Data
+namespace HW.GitPackageInstaller.ComHwShaderGuiControlInstaller.Core.Data
 {
     /// <summary>
     /// リポジトリのテーブル

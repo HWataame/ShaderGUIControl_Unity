@@ -1,6 +1,6 @@
 {
-    "name": "HW.GitPackageInstaller.com.hw.shader_gui_control",
-    "rootNamespace": "HW.GitPackageInstaller",
+    "name": "HW.GitPackageInstaller.ComHwShaderGuiControlInstaller",
+    "rootNamespace": "HW.GitPackageInstaller.ComHwShaderGuiControlInstaller",
     "references": [],
     "includePlatforms": [
         "Editor"
