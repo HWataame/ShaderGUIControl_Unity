@@ -7,5 +7,7 @@
   "author": {
     "name": "Wataame(HWataame)"
   },
-  "dependencies": {}
+  "dependencies": {
+    "com.unity.modules.imgui": "1.0.0"
+  }
 }
